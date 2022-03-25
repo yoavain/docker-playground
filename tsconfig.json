@@ -1,0 +1,13 @@
+{
+    "extends": "@tsconfig/node14",
+    "compilerOptions": {
+        "lib": ["es2020", "dom"],
+        "strict": false,
+        "moduleResolution": "node",
+        "importsNotUsedAsValues": "error",
+        "allowJs": true,
+        "noEmit": true,
+        "baseUrl": "."
+    },
+    "include": ["./src/**/*", "./*.ts"]
+}
