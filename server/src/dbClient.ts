@@ -2,13 +2,16 @@ import { DynamoDBClient, GetItemCommand, GetItemCommandOutput, PutItemCommand } 
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
+const TableName = "visits";
+const CountRecordKey = "count";
+
 export const getVisits = async (): Promise<number> => {
     console.log("In getVisits");
     const getItemCommand: GetItemCommand = new GetItemCommand({
-        TableName: "visits",
+        TableName: TableName,
         Key: {
             id: {
-                N: "count"
+                S: CountRecordKey
             }
         }
     });
@@ -23,10 +26,10 @@ export const incrementVisits = async () => {
     const count: number = await getVisits();
 
     const putItemCommand = new PutItemCommand({
-        TableName: "visits",
+        TableName: TableName,
         Item: {
             id: {
-                N: "count"
+                S: CountRecordKey
             },
             count: {
                 N: (count + 1).toString()

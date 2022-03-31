@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import express from "express";
 import { getVisits, incrementVisits } from "./dbClient";
 const app = express();
