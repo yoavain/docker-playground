@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "description": "Learning Docker",
-  "main": "dist/server/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
