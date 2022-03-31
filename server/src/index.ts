@@ -4,13 +4,23 @@ const app = express();
 const port = 3000;
 
 app.get("/get", async (req, res) => {
-  const count: number =  await getVisits();
-  res.send(`Total visitors: ${count}`);
+  try {
+    const count: number = await getVisits();
+    res.send(`Total visitors: ${count}`);
+  }
+  catch (e) {
+    res.status(500).send(`Error: ${e}`);
+  }
 });
 
 app.get("/inc", async (req, res) => {
-  const count = await incrementVisits()
-  res.send(`Hello visitor #${count}`);
+  try {
+    const count = await incrementVisits()
+    res.send(`Hello visitor #${count}`);
+  }
+  catch (e) {
+    res.status(500).send(`Error: ${e}`);
+  }
 });
 
 app.listen(port, () => {

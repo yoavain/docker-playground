@@ -9,7 +9,9 @@
   "license": "ISC",
   "scripts": {
     "prebuild": "rimraf dist",
+    "cleanup": "docker rm -f server && docker rmi -f server",
     "build": "tsc -p tsconfig.build.json",
+    "postbuild": "docker build -t server .",
     "prestart": "npm run build",
     "start": "node dist/index.js"
   },

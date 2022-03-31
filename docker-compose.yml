@@ -32,16 +32,16 @@ services:
     depends_on:
       - "dynamodb"
 
-  db-setup:
-    build: "docker/db-setup"
-    container_name: "db-setup"
-    networks:
-      - "common"
-    depends_on:
-      - "dynamodb"
+#  db-setup:
+#    build: "docker/db-setup"
+#    container_name: "db-setup"
+#    networks:
+#      - "common"
+#    depends_on:
+#      - "dynamodb"
 
   server:
-    build: "server"
+    build: "./server"
     container_name: "server"
     environment:
       DYNAMO_URL: "http://dynamodb:8000"
@@ -53,6 +53,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - "dynamodb"
       - "db-setup"
     # restart: always
 

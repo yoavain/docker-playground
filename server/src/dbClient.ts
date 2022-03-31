@@ -3,6 +3,7 @@ import { DynamoDBClient, GetItemCommand, GetItemCommandOutput, PutItemCommand } 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
 export const getVisits = async (): Promise<number> => {
+    console.log("In getVisits");
     const getItemCommand: GetItemCommand = new GetItemCommand({
         TableName: "visits",
         Key: {
@@ -11,11 +12,14 @@ export const getVisits = async (): Promise<number> => {
             }
         }
     });
-    const getResponse: GetItemCommandOutput = await client.send(getItemCommand);
-    return Number(getResponse.Item.count.N) || 0;
+    console.log(`Sending GetItemCommand: ${JSON.stringify(getItemCommand)}`);
+    const response: GetItemCommandOutput = await client.send(getItemCommand);
+    console.log(JSON.stringify({ response }));
+    return Number(response.Item?.count?.N) || 0;
 }
 
 export const incrementVisits = async () => {
+    console.log("In incrementVisits");
     const count: number = await getVisits();
 
     const putItemCommand = new PutItemCommand({
@@ -30,5 +34,6 @@ export const incrementVisits = async () => {
         }
     });
 
+    console.log(`Sending PutItemCommand: ${JSON.stringify(putItemCommand)}`);
     await client.send(putItemCommand);
 };
