@@ -21,7 +21,7 @@ export const getVisits = async (): Promise<number> => {
     return Number(response.Item?.count?.N) || 0;
 }
 
-export const incrementVisits = async () => {
+export const incrementVisits = async (): Promise<number> => {
     console.log("In incrementVisits");
     const count: number = await getVisits();
 
@@ -39,4 +39,5 @@ export const incrementVisits = async () => {
 
     console.log(`Sending PutItemCommand: ${JSON.stringify(putItemCommand)}`);
     await client.send(putItemCommand);
+    return count + 1;
 };

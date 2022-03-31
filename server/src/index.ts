@@ -17,7 +17,7 @@ app.get("/get", async (req, res) => {
 
 app.get("/inc", async (req, res) => {
   try {
-    const count = await incrementVisits()
+    const count: number = await incrementVisits()
     res.send(`Hello visitor #${count}`);
   }
   catch (e) {
