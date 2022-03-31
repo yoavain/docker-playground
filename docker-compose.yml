@@ -1,0 +1,50 @@
+version: "3.9"
+
+volumes:
+  dynamodb_data:
+
+services:
+  dynamodb-local:
+    build: "src/dynamodb-local"
+    container_name: "dynamodb"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "dynamodb_data:/home/dynamodblocal/data"
+
+  dynamodb-admin:
+    image: "aaronshaf/dynamodb-admin"
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
+      REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "local"
+      AWS_SECRET_ACCESS_KEY: "local"
+    depends_on:
+      - "dynamodb-local"
+
+  db-setup:
+    build: "src/db-setup"
+    container_name: "db-setup"
+    environment:
+      DYNAMO_URL: "http://dynamodb-local:8000"
+      REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "local"
+      AWS_SECRET_ACCESS_KEY: "local"
+    depends_on:
+      - "dynamodb-local"
+
+  server:
+    build: "."
+    container_name: "server"
+    environment:
+      DYNAMO_URL: "http://dynamodb-local:8000"
+      REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "local"
+      AWS_SECRET_ACCESS_KEY: "local"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "db-setup"
+    # restart: always

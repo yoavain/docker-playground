@@ -2,7 +2,7 @@
   "name": "docker-playground",
   "version": "1.0.0",
   "description": "Learning Docker",
-  "main": "index.js",
+  "main": "dist/server/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -10,16 +10,18 @@
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
     "prestart": "npm run build",
-    "start": "node dist/index.js",
+    "start": "node dist/server/index.js",
     "predocker:build": "npm run build && docker rm -f docker-playground && docker rmi -f docker-playground",
-    "docker:build": "docker build -t docker-playground .",
+    "docker:build": "docker build -t docker-playground src/server",
     "postdocker:build": "docker scan docker-playground",
     "predocker:start": "npm run docker:build",
     "docker:start": "docker run -dp 3000:3000 --name docker-playground docker-playground",
-    "docker:stop": "docker stop docker-playground"
+    "docker:stop": "docker stop docker-playground",
+    "docker-compose:up": "docker-compose down && docker-compose -f docker-compose.yml up -d"
   },
   "dependencies": {
-    "express": "4.17.3"
+    "express": "4.17.3",
+    "@aws-sdk/client-dynamodb": "3.58.0"
   },
   "devDependencies": {
     "@tsconfig/node14": "1.0.1",

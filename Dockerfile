@@ -8,4 +8,4 @@ COPY . /usr/app
 RUN npm ci --only=production
 
 USER node
-CMD ["dumb-init", "node", "dist/index.js"]
+CMD ["dumb-init", "node", "dist/server/index.js"]
