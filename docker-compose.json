@@ -42,7 +42,12 @@
             ]
         },
         "express-server": {
-            "build": "./express-server",
+            "build": {
+                "context": "./express-server",
+                "args": {
+                    "VERDACCIO_TOKEN": "${VERDACCIO_TOKEN}"
+                }
+            },
             "container_name": "express-server",
             "environment": {
                 "DYNAMO_URL": "http://dynamodb:8000",
@@ -65,7 +70,12 @@
             ]
         },
         "fastify-server": {
-            "build": "./fastify-server",
+            "build": {
+                "context": "./fastify-server",
+                "args": {
+                    "VERDACCIO_TOKEN": "${VERDACCIO_TOKEN}"
+                }
+            },
             "container_name": "fastify-server",
             "environment": {
                 "DYNAMO_URL": "http://dynamodb:8000",
