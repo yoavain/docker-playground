@@ -1,5 +1,5 @@
-import type { GetItemCommandOutput } from "@aws-sdk/client-dynamodb";
-import { CreateTableCommand, DynamoDBClient, GetItemCommand, ListTablesCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import type { GetItemCommandOutput, UpdateItemCommandOutput } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand, DynamoDBClient, GetItemCommand, ListTablesCommand, PutItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
@@ -29,7 +29,7 @@ export const initDb = async (TableName: string): Promise<void> => {
                 id: {
                     S: CountRecordKey
                 },
-                count: {
+                [CountRecordKey]: {
                     N: "0"
                 }
             }
@@ -54,26 +54,28 @@ export const getVisits = async (TableName: string): Promise<number> => {
     console.log(`Sending GetItemCommand: ${JSON.stringify(getItemCommand)}`);
     const response: GetItemCommandOutput = await client.send(getItemCommand);
     console.log(JSON.stringify({ response }));
-    return Number(response.Item?.count?.N) || 0;
+    return Number(response.Item?.[CountRecordKey]?.N) || 0;
 };
 
 export const incrementVisits = async (TableName: string): Promise<number> => {
     console.log("In incrementVisits");
-    const count: number = await getVisits(TableName);
-
-    const putItemCommand = new PutItemCommand({
+    const updateItemCommand = new UpdateItemCommand({
         TableName: TableName,
-        Item: {
+        Key: {
             id: {
                 S: CountRecordKey
-            },
-            count: {
-                N: (count + 1).toString()
             }
-        }
+        },
+        UpdateExpression: `SET ${CountRecordKey} = ${CountRecordKey} :inc`,
+        ExpressionAttributeValues: {
+            ":inc": {
+                N: "1"
+            }
+        },
+        ReturnValues: "UPDATED_NEW"
     });
 
-    console.log(`Sending PutItemCommand: ${JSON.stringify(putItemCommand)}`);
-    await client.send(putItemCommand);
-    return count + 1;
+    console.log(`Sending UpdateItemCommand: ${JSON.stringify(updateItemCommand)}`);
+    const response: UpdateItemCommandOutput = await client.send(updateItemCommand);
+    return Number(response.Attributes?.[CountRecordKey]?.N) || 0;
 };
