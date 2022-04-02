@@ -1,6 +1,6 @@
 {
   "name": "@yoavain/fastify-server",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@yoavain/db-client": "1.0.40",
+    "@yoavain/db-client": "1.0.41",
     "dotenv": "16.0.0",
     "fastify": "3.27.4"
   },
