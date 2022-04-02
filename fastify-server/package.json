@@ -1,6 +1,6 @@
 {
   "name": "@yoavain/fastify-server",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "@aws-sdk/client-dynamodb": "3.58.0",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
-    "@yoavain/db-client": "1.0.32",
+    "@yoavain/db-client": "1.0.33",
     "dotenv": "16.0.0",
     "eslint": "8.12.0",
     "eslint-import-resolver-typescript": "2.7.0",
