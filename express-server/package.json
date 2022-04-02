@@ -1,8 +1,7 @@
 {
-  "name": "@docker-playground/server",
+  "name": "@docker-playground/express-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Learning Docker",
   "main": "dist/index.js",
   "keywords": [],
   "author": "",

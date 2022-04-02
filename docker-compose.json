@@ -39,9 +39,9 @@
                 "dynamodb"
             ]
         },
-        "server": {
-            "build": "./server",
-            "container_name": "server",
+        "express-server": {
+            "build": "./express-server",
+            "container_name": "express-server",
             "environment": {
                 "DYNAMO_URL": "http://dynamodb:8000",
                 "REGION": "us-east-1",
@@ -53,6 +53,26 @@
             ],
             "ports": [
                 "3000:3000"
+            ],
+            "depends_on": [
+                "dynamodb",
+                "db-setup"
+            ]
+        },
+        "fastify-server": {
+            "build": "./fastify-server",
+            "container_name": "fastify-server",
+            "environment": {
+                "DYNAMO_URL": "http://dynamodb:8000",
+                "REGION": "us-east-1",
+                "AWS_ACCESS_KEY_ID": "local",
+                "AWS_SECRET_ACCESS_KEY": "local"
+            },
+            "networks": [
+                "common"
+            ],
+            "ports": [
+                "3001:3001"
             ],
             "depends_on": [
                 "dynamodb",

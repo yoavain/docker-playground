@@ -2,7 +2,7 @@ import { CreateTableCommand, DynamoDBClient, GetItemCommand, GetItemCommandOutpu
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
-const TableName = "visits";
+const TableName = "fastify-visits";
 const CountRecordKey = "count";
 
 export const initDb = async (): Promise<void> => {

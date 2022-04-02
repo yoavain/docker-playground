@@ -7,9 +7,13 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "build": "npm --prefix server run build",
-    "start": "npm --prefix server run start",
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build --stream",
+    "start": "lerna run start --stream",
     "predocker-compose:up": "docker-compose -f docker-compose.json down && npm run build",
     "docker-compose:up": "docker-compose -f docker-compose.json build && docker-compose -f docker-compose.json up -d"
+  },
+  "devDependencies": {
+    "lerna": "4.0.0"
   }
 }
