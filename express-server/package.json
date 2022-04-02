@@ -8,7 +8,7 @@
     "dist"
   ],
   "keywords": [],
-  "author": "",
+  "author": "yoavain",
   "license": "ISC",
   "scripts": {
     "prebuild": "rimraf dist",

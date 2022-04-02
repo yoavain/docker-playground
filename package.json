@@ -4,7 +4,7 @@
   "private": true,
   "description": "Learning Docker",
   "keywords": [],
-  "author": "",
+  "author": "yoavain",
   "license": "ISC",
   "scripts": {
     "run:verdaccio": "docker run -it --rm --name verdaccio -p 4873:4873 -v docker-playground-storage:/verdaccio/storage verdaccio/verdaccio",
