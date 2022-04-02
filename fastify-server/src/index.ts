@@ -30,7 +30,7 @@ const startServer = async () => {
             return { message: `Hello visitor #${count}` };
         });
 
-        await fastify.listen(port);
+        await fastify.listen(port, "0.0.0.0");
         console.log(`Fastify server listening on port ${port}!`);
     }
     catch (err) {
