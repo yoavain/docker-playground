@@ -12,6 +12,7 @@
     "docker-compose:down": "docker-compose -f docker-compose.json down",
     "docker-compose:build": "docker-compose -f docker-compose.json build",
     "docker-compose:up": "docker-compose -f docker-compose.json up -d",
+    "stop": "npm run docker-compose:down",
     "start": "npm run docker-compose:down && npm run docker-compose:build && npm run docker-compose:up"
   },
   "devDependencies": {
