@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 import express from "express";
-import { initDb, getVisits, incrementVisits } from "@docker-playground/db-client";
+import { initDb, getVisits, incrementVisits } from "@yoavain/db-client";
 
 const TableName = "express-visits";
 

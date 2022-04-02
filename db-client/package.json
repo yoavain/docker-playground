@@ -1,5 +1,5 @@
 {
-  "name": "@docker-playground/db-client",
+  "name": "@yoavain/db-client",
   "version": "1.0.3",
   "publishConfig": {
     "registry": "http://localhost:4873"

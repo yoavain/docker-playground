@@ -1,4 +1,4 @@
-import { initDb, getVisits, incrementVisits } from "@docker-playground/db-client";
+import { initDb, getVisits, incrementVisits } from "@yoavain/db-client";
 import type { FastifyInstance, FastifyServerOptions } from "fastify";
 import Fastify from "fastify";
 
