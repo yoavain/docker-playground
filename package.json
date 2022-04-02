@@ -14,9 +14,12 @@
     "docker-compose:build": "docker-compose -f docker-compose.json build",
     "docker-compose:up": "docker-compose -f docker-compose.json up -d",
     "stop": "npm run docker-compose:down",
-    "start": "npm run docker-compose:down && npm run docker-compose:build && npm run docker-compose:up"
+    "start": "npm run docker-compose:down && npm run docker-compose:build && npm run docker-compose:up",
+    "benchmark:express": "autocannon http://localhost:3000/inc -d 20 -c 50",
+    "benchmark:fastify": "autocannon http://localhost:3001/inc -d 20 -c 50"
   },
   "devDependencies": {
+    "autocannon": "7.8.1",
     "lerna": "4.0.0"
   }
 }

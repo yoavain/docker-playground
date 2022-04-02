@@ -12,20 +12,20 @@ const startServer = async () => {
     app.get("/get", async (req, res) => {
         try {
             const count: number = await getVisits();
-            res.send(`Total visitors: ${count}`);
+            res.contentType("application/json").send({ message: `Total visitors: ${count}` });
         }
         catch (e) {
-            res.status(500).send(`Error: ${e}`);
+            res.status(500).contentType("application/json").send({ error: e.message, stack: e.stack });
         }
     });
 
     app.get("/inc", async (req, res) => {
         try {
             const count: number = await incrementVisits();
-            res.send(`Hello visitor #${count}`);
+            res.contentType("application/json").send({ message: `Hello visitor #${count}` });
         }
         catch (e) {
-            res.status(500).send(`Error: ${e}`);
+            res.status(500).contentType("application/json").send({ error: e.message, stack: e.stack });
         }
     });
 
