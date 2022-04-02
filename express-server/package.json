@@ -1,6 +1,6 @@
 {
   "name": "@yoavain/express-server",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@yoavain/db-client": "1.0.39",
+    "@yoavain/db-client": "1.0.40",
     "dotenv": "16.0.0",
     "express": "4.17.3"
   },
