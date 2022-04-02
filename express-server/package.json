@@ -1,6 +1,6 @@
 {
   "name": "@yoavain/express-server",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "@aws-sdk/client-dynamodb": "3.58.0",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
-    "@yoavain/db-client": "1.0.20",
+    "@yoavain/db-client": "1.0.21",
     "dotenv": "16.0.0",
     "eslint": "8.12.0",
     "eslint-import-resolver-typescript": "2.7.0",
