@@ -5,6 +5,7 @@ ENV NODE_ENV production
 
 WORKDIR /usr/app
 COPY . /usr/app
+RUN sed -i 's/127.0.0.1/host.docker.internal/g' /user/app/.npmrc
 RUN npm ci --only=production
 RUN mkdir logs
 RUN chmod -R 777 logs
