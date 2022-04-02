@@ -1,8 +1,13 @@
 {
+  "version": "1.0.1",
+  "command": {
+    "publish": {
+      "registry": "http://localhost:4873"
+    }
+  },
   "packages": [
     "db-client",
     "express-server",
     "fastify-server"
-  ],
-  "version": "1.0.1"
+  ]
 }
