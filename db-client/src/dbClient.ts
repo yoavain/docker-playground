@@ -66,7 +66,7 @@ export const incrementVisits = async (TableName: string): Promise<number> => {
                 S: CountRecordKey
             }
         },
-        UpdateExpression: `SET ${CountRecordKey} = ${CountRecordKey} :inc`,
+        UpdateExpression: `SET ${CountRecordKey} = ${CountRecordKey} + :inc`,
         ExpressionAttributeValues: {
             ":inc": {
                 N: "1"
