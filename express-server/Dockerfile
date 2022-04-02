@@ -6,6 +6,8 @@ ENV NODE_ENV production
 WORKDIR /usr/app
 COPY . /usr/app
 RUN npm ci --only=production
+RUN mkdir logs
+RUN chmod -R 777 logs
 
 USER node
 CMD ["dumb-init", "node", "dist/index.js"]

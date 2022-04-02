@@ -1,4 +1,5 @@
-import { CreateTableCommand, DynamoDBClient, GetItemCommand, GetItemCommandOutput, ListTablesCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import type { GetItemCommandOutput } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand, DynamoDBClient, GetItemCommand, ListTablesCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
@@ -39,7 +40,7 @@ export const initDb = async (): Promise<void> => {
     catch (err) {
         console.error(err);
     }
-}
+};
 
 export const getVisits = async (): Promise<number> => {
     console.log("In getVisits");
@@ -55,7 +56,7 @@ export const getVisits = async (): Promise<number> => {
     const response: GetItemCommandOutput = await client.send(getItemCommand);
     console.log(JSON.stringify({ response }));
     return Number(response.Item?.count?.N) || 0;
-}
+};
 
 export const incrementVisits = async (): Promise<number> => {
     console.log("In incrementVisits");

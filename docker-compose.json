@@ -1,7 +1,9 @@
 {
     "version": "3.9",
     "volumes": {
-        "dynamodb_data": null
+        "dynamodb_data": null,
+        "express_logs": null,
+        "fastify_logs": null
     },
     "services": {
         "dynamodb": {
@@ -54,6 +56,9 @@
             "ports": [
                 "3000:3000"
             ],
+            "volumes": [
+                "express_logs:/user/app/logs"
+            ],
             "depends_on": [
                 "dynamodb",
                 "db-setup"
@@ -73,6 +78,9 @@
             ],
             "ports": [
                 "3001:3001"
+            ],
+            "volumes": [
+                "fastify_logs:/usr/app/logs"
             ],
             "depends_on": [
                 "dynamodb",

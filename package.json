@@ -10,6 +10,7 @@
     "postinstall": "lerna bootstrap",
     "build": "lerna run build --stream",
     "docker-compose:down": "docker-compose -f docker-compose.json down",
+    "predocker-compose:build": "npm run build",
     "docker-compose:build": "docker-compose -f docker-compose.json build",
     "docker-compose:up": "docker-compose -f docker-compose.json up -d",
     "stop": "npm run docker-compose:down",
