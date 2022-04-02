@@ -1,0 +1,68 @@
+{
+    "version": "3.9",
+    "volumes": {
+        "dynamodb_data": null
+    },
+    "services": {
+        "dynamodb": {
+            "command": "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data",
+            "image": "amazon/dynamodb-local",
+            "container_name": "dynamodb",
+            "networks": [
+                "common"
+            ],
+            "ports": [
+                "8000:8000"
+            ],
+            "volumes": [
+                "dynamodb_data:/home/dynamodblocal/data"
+            ],
+            "working_dir": "/home/dynamodblocal",
+            "user": "root"
+        },
+        "dynamodb-admin": {
+            "image": "aaronshaf/dynamodb-admin",
+            "container_name": "dynamodb-admin",
+            "networks": [
+                "common"
+            ],
+            "ports": [
+                "8001:8001"
+            ],
+            "environment": {
+                "DYNAMO_ENDPOINT": "http://dynamodb:8000",
+                "REGION": "us-east-1",
+                "AWS_ACCESS_KEY_ID": "local",
+                "AWS_SECRET_ACCESS_KEY": "local"
+            },
+            "depends_on": [
+                "dynamodb"
+            ]
+        },
+        "server": {
+            "build": "./server",
+            "container_name": "server",
+            "environment": {
+                "DYNAMO_URL": "http://dynamodb:8000",
+                "REGION": "us-east-1",
+                "AWS_ACCESS_KEY_ID": "local",
+                "AWS_SECRET_ACCESS_KEY": "local"
+            },
+            "networks": [
+                "common"
+            ],
+            "ports": [
+                "3000:3000"
+            ],
+            "depends_on": [
+                "dynamodb",
+                "db-setup"
+            ]
+        }
+    },
+    "networks": {
+        "common": {
+            "name": "common"
+        }
+    }
+}

@@ -1,9 +1,45 @@
-import { DynamoDBClient, GetItemCommand, GetItemCommandOutput, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand, DynamoDBClient, GetItemCommand, GetItemCommandOutput, ListTablesCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
 const TableName = "visits";
 const CountRecordKey = "count";
+
+export const initDb = async (): Promise<void> => {
+    console.log("Initializing db");
+
+    try {
+        const results = await client.send(new ListTablesCommand({}));
+        if (results.TableNames.includes(TableName)) {
+            console.log("Table already exists");
+            return;
+        }
+
+        await client.send(new CreateTableCommand({
+            TableName,
+            KeySchema: [{ AttributeName: "id", KeyType: "HASH" }],
+            AttributeDefinitions: [{ AttributeName: "id", AttributeType: "S" }],
+            ProvisionedThroughput: { ReadCapacityUnits: 10, WriteCapacityUnits: 10 }
+        }));
+        console.log("Table created");
+
+        const putItemCommand = new PutItemCommand({
+            TableName: TableName,
+            Item: {
+                id: {
+                    S: CountRecordKey
+                },
+                count: {
+                    N: "0"
+                }
+            }
+        });
+        await client.send(putItemCommand);
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
 
 export const getVisits = async (): Promise<number> => {
     console.log("In getVisits");

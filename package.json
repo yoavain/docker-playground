@@ -9,7 +9,7 @@
   "scripts": {
     "build": "npm --prefix server run build",
     "start": "npm --prefix server run start",
-    "predocker-compose:up": "docker-compose down && npm run build",
-    "docker-compose:up": "docker-compose -f docker-compose.yml up -d"
+    "predocker-compose:up": "docker-compose -f docker-compose.json down && npm run build",
+    "docker-compose:up": "docker-compose -f docker-compose.json build && docker-compose -f docker-compose.json up -d"
   }
 }
