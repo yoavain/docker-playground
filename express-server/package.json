@@ -12,7 +12,6 @@
   "license": "ISC",
   "scripts": {
     "prebuild": "rimraf dist",
-    "cleanup": "docker rm -f server && docker rmi -f server",
     "eslint": "eslint src",
     "build": "tsc -p tsconfig.build.json",
     "prestart": "npm run build",
