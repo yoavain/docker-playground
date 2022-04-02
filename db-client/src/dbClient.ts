@@ -3,7 +3,7 @@ import { CreateTableCommand, DynamoDBClient, GetItemCommand, ListTablesCommand, 
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
-const CountRecordKey = "counter";
+const VisitorsKey = "visitors";
 
 export const initDb = async (TableName: string): Promise<void> => {
     try {
@@ -27,9 +27,9 @@ export const initDb = async (TableName: string): Promise<void> => {
             TableName: TableName,
             Item: {
                 id: {
-                    S: CountRecordKey
+                    S: VisitorsKey
                 },
-                [CountRecordKey]: {
+                [VisitorsKey]: {
                     N: "0"
                 }
             }
@@ -47,14 +47,14 @@ export const getVisits = async (TableName: string): Promise<number> => {
         TableName: TableName,
         Key: {
             id: {
-                S: CountRecordKey
+                S: VisitorsKey
             }
         }
     });
     console.log(`Sending GetItemCommand: ${JSON.stringify(getItemCommand)}`);
     const response: GetItemCommandOutput = await client.send(getItemCommand);
     console.log(JSON.stringify({ response }));
-    return Number(response.Item?.[CountRecordKey]?.N) || 0;
+    return Number(response.Item?.[VisitorsKey]?.N) || 0;
 };
 
 export const incrementVisits = async (TableName: string): Promise<number> => {
@@ -63,10 +63,10 @@ export const incrementVisits = async (TableName: string): Promise<number> => {
         TableName: TableName,
         Key: {
             id: {
-                S: CountRecordKey
+                S: VisitorsKey
             }
         },
-        UpdateExpression: `SET ${CountRecordKey} = ${CountRecordKey} + :inc`,
+        UpdateExpression: `SET ${VisitorsKey} = ${VisitorsKey} + :inc`,
         ExpressionAttributeValues: {
             ":inc": {
                 N: "1"
@@ -77,5 +77,5 @@ export const incrementVisits = async (TableName: string): Promise<number> => {
 
     console.log(`Sending UpdateItemCommand: ${JSON.stringify(updateItemCommand)}`);
     const response: UpdateItemCommandOutput = await client.send(updateItemCommand);
-    return Number(response.Attributes?.[CountRecordKey]?.N) || 0;
+    return Number(response.Attributes?.[VisitorsKey]?.N) || 0;
 };
