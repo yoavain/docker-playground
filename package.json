@@ -9,7 +9,7 @@
   "scripts": {
     "run:verdaccio": "docker run -it --rm --name verdaccio -p 4873:4873 -v docker-playground-storage:/verdaccio/storage verdaccio/verdaccio",
     "postinstall": "lerna bootstrap",
-    "build": "lerna run build --stream && lerna version patch --exact --force-publish && lerna publish minor --yes",
+    "build": "lerna run build --stream && lerna version patch --exact --force-publish && lerna publish from-pacakge --yes",
     "docker-compose:down": "docker-compose -f docker-compose.json down",
     "predocker-compose:build": "npm run build",
     "docker-compose:build": "docker-compose -f docker-compose.json build",
