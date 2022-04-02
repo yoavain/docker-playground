@@ -9,9 +9,10 @@
   "scripts": {
     "postinstall": "lerna bootstrap",
     "build": "lerna run build --stream",
-    "start": "lerna run start --stream",
-    "predocker-compose:up": "docker-compose -f docker-compose.json down && npm run build",
-    "docker-compose:up": "docker-compose -f docker-compose.json build && docker-compose -f docker-compose.json up -d"
+    "docker-compose:down": "docker-compose -f docker-compose.json down",
+    "docker-compose:build": "docker-compose -f docker-compose.json build",
+    "docker-compose:up": "docker-compose -f docker-compose.json up -d",
+    "start": "npm run docker-compose:down && npm run docker-compose:build && npm run docker-compose:up"
   },
   "devDependencies": {
     "lerna": "4.0.0"
