@@ -1,4 +1,4 @@
-/express-server/dist/
+**/dist/
 /.idea/
 **/node_modules/
 **/package.json.lerna_backup
