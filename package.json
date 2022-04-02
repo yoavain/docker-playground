@@ -7,7 +7,7 @@
   "author": "yoavain",
   "license": "ISC",
   "scripts": {
-    "run:verdaccio": "docker run -it --rm --name verdaccio -p 4873:4873 -v docker-playground-conf:/verdaccio/conf -v docker-playground-storage:/verdaccio/storage verdaccio/verdaccio",
+    "run:verdaccio": "docker run -it --rm --name verdaccio -p 4873:4873 -v docker-playground-verdaccio-conf:/verdaccio/conf -v docker-playground-verdaccio-storage:/verdaccio/storage verdaccio/verdaccio",
     "postinstall": "lerna bootstrap",
     "eslint": "lerna run eslint --stream",
     "build": "lerna run build --stream && lerna version patch --exact --force-publish --yes && lerna publish from-package --yes",
