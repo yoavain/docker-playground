@@ -77,4 +77,3 @@ export const incrementVisits = async (TableName: string): Promise<number> => {
     await client.send(putItemCommand);
     return count + 1;
 };
-
