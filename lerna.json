@@ -1,5 +1,5 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   "command": {
     "publish": {
       "registry": "http://localhost:4873"
