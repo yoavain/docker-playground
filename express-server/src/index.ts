@@ -1,17 +1,19 @@
 require("dotenv").config();
 
 import express from "express";
-import { getVisits, incrementVisits, initDb } from "./dbClient";
+import { initDb, getVisits, incrementVisits } from "@docker-playground/db-client";
+
+const TableName = "express-visits";
 
 const startServer = async () => {
     const app = express();
     const port = 3000;
 
-    await initDb();
+    await initDb(TableName);
 
     app.get("/get", async (req, res) => {
         try {
-            const count: number = await getVisits();
+            const count: number = await getVisits(TableName);
             res.contentType("application/json").send({ message: `Total visitors: ${count}` });
         }
         catch (e) {
@@ -21,7 +23,7 @@ const startServer = async () => {
 
     app.get("/inc", async (req, res) => {
         try {
-            const count: number = await incrementVisits();
+            const count: number = await incrementVisits(TableName);
             res.contentType("application/json").send({ message: `Hello visitor #${count}` });
         }
         catch (e) {

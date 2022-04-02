@@ -1,7 +1,8 @@
 {
   "packages": [
+    "db-client",
     "express-server",
     "fastify-server"
   ],
-  "version": "independent"
+  "version": "1.0.0"
 }

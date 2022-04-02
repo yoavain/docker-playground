@@ -3,27 +3,26 @@ import { CreateTableCommand, DynamoDBClient, GetItemCommand, ListTablesCommand, 
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
-const TableName = "fastify-visits";
 const CountRecordKey = "count";
 
-export const initDb = async (): Promise<void> => {
-    console.log("Initializing db");
-
+export const initDb = async (TableName: string): Promise<void> => {
     try {
+        console.log("Initializing db");
         const results = await client.send(new ListTablesCommand({}));
-        if (results.TableNames.includes(TableName)) {
+        if (!results.TableNames.includes(TableName)) {
+            await client.send(new CreateTableCommand({
+                TableName,
+                KeySchema: [{ AttributeName: "id", KeyType: "HASH" }],
+                AttributeDefinitions: [{ AttributeName: "id", AttributeType: "S" }],
+                ProvisionedThroughput: { ReadCapacityUnits: 10, WriteCapacityUnits: 10 }
+            }));
+            console.log("Table created");
+        }
+        else {
             console.log("Table already exists");
-            return;
         }
 
-        await client.send(new CreateTableCommand({
-            TableName,
-            KeySchema: [{ AttributeName: "id", KeyType: "HASH" }],
-            AttributeDefinitions: [{ AttributeName: "id", AttributeType: "S" }],
-            ProvisionedThroughput: { ReadCapacityUnits: 10, WriteCapacityUnits: 10 }
-        }));
-        console.log("Table created");
-
+        // Zero counter
         const putItemCommand = new PutItemCommand({
             TableName: TableName,
             Item: {
@@ -42,7 +41,7 @@ export const initDb = async (): Promise<void> => {
     }
 };
 
-export const getVisits = async (): Promise<number> => {
+export const getVisits = async (TableName: string): Promise<number> => {
     console.log("In getVisits");
     const getItemCommand: GetItemCommand = new GetItemCommand({
         TableName: TableName,
@@ -58,9 +57,9 @@ export const getVisits = async (): Promise<number> => {
     return Number(response.Item?.count?.N) || 0;
 };
 
-export const incrementVisits = async (): Promise<number> => {
+export const incrementVisits = async (TableName: string): Promise<number> => {
     console.log("In incrementVisits");
-    const count: number = await getVisits();
+    const count: number = await getVisits(TableName);
 
     const putItemCommand = new PutItemCommand({
         TableName: TableName,

@@ -1,8 +1,10 @@
+import { initDb, getVisits, incrementVisits } from "@docker-playground/db-client";
 import type { FastifyInstance, FastifyServerOptions } from "fastify";
 import Fastify from "fastify";
-import { getVisits, incrementVisits, initDb } from "./dbClient";
 
 require("dotenv").config();
+
+const TableName = "fastify-visits";
 
 const fastifyServerOptions: FastifyServerOptions = {
     logger: {
@@ -18,15 +20,15 @@ const startServer = async () => {
     try {
         const port = 3001;
 
-        await initDb();
+        await initDb(TableName);
 
         fastify.get("/get", async (req, res) => {
-            const count: number = await getVisits();
+            const count: number = await getVisits(TableName);
             return { message: `Total visitors: ${count}` };
         });
 
         fastify.get("/inc", async (req, res) => {
-            const count: number = await incrementVisits();
+            const count: number = await incrementVisits(TableName);
             return { message: `Hello visitor #${count}` };
         });
 
