@@ -3,7 +3,7 @@ import { CreateTableCommand, DynamoDBClient, GetItemCommand, ListTablesCommand, 
 
 const client: DynamoDBClient = new DynamoDBClient({ region: "us-east-1", endpoint: process.env.DYNAMO_URL });
 
-const CountRecordKey = "count";
+const CountRecordKey = "counter";
 
 export const initDb = async (TableName: string): Promise<void> => {
     try {
