@@ -53,9 +53,6 @@
             "networks": [
                 "common"
             ],
-            "extra_hosts": {
-                "host.docker.internal:host-gateway": null
-            },
             "ports": [
                 "3000:3000"
             ],
@@ -79,9 +76,6 @@
             "networks": [
                 "common"
             ],
-            "extra_hosts": {
-                "host.docker.internal:host-gateway": null
-            },
             "ports": [
                 "3001:3001"
             ],
