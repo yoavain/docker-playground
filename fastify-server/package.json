@@ -20,7 +20,7 @@
   "dependencies": {
     "@yoavain/db-client": "1.0.51",
     "dotenv": "16.0.0",
-    "fastify": "3.27.4"
+    "fastify": "3.29.4"
   },
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "3.58.0",
