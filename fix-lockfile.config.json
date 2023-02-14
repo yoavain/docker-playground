@@ -1,0 +1,9 @@
+{
+    "includePaths": ["./", "./db-client", "./express-server", "./fastify-server"],
+    "lockFileNames": ["package-lock.json"],
+    "prettier": {
+        "useTabs": true,
+        "endOfLine": "cr"
+    }
+}
+
