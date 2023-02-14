@@ -8,7 +8,7 @@
   "license": "ISC",
   "scripts": {
     "run:verdaccio": "docker run -it --rm --name verdaccio -p 4873:4873 -v docker-playground-verdaccio-conf:/verdaccio/conf -v docker-playground-verdaccio-storage:/verdaccio/storage verdaccio/verdaccio",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap && npx fix-lockfile-integrity",
     "eslint": "lerna run eslint --stream",
     "build": "lerna run build --stream && lerna version patch --exact --force-publish --yes && lerna publish from-package --yes",
     "docker-compose:down": "docker-compose -f docker-compose.json down",
@@ -21,7 +21,7 @@
     "benchmark:fastify": "autocannon http://localhost:3001/inc -d 20 -c 50"
   },
   "devDependencies": {
-    "autocannon": "7.8.1",
-    "lerna": "4.0.0"
+    "autocannon": "7.10.0",
+    "lerna": "6.5.1"
   }
 }

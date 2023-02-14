@@ -65,8 +65,7 @@
                 "express_logs:/user/app/logs"
             ],
             "depends_on": [
-                "dynamodb",
-                "db-setup"
+                "dynamodb"
             ]
         },
         "fastify-server": {
@@ -93,8 +92,7 @@
                 "fastify_logs:/usr/app/logs"
             ],
             "depends_on": [
-                "dynamodb",
-                "db-setup"
+                "dynamodb"
             ]
         }
     },
