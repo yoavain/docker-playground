@@ -20,7 +20,7 @@
   "dependencies": {
     "@yoavain/db-client": "1.0.53",
     "dotenv": "16.0.3",
-    "express": "4.18.2"
+    "express": "4.19.2"
   },
   "devDependencies": {
     "@tsconfig/node18": "1.0.1",
