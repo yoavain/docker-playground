@@ -20,7 +20,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.347.1"
+    "@aws-sdk/client-dynamodb": "3.529.0"
   },
   "devDependencies": {
     "@tsconfig/node18": "1.0.1",
